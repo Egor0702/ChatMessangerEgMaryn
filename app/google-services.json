@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "563752864192",
+    "project_id": "chatmessangeregmaryn",
+    "storage_bucket": "chatmessangeregmaryn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:563752864192:android:18888c5f287f6af6cea025",
+        "android_client_info": {
+          "package_name": "com.example.chatmessangeregmaryn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "563752864192-7t1hqhf2lg6llb2fvqk7s97m38blmfiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSR0g-sRO6GyjZCkJkMrZa0r2F7AbLWEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "563752864192-7t1hqhf2lg6llb2fvqk7s97m38blmfiq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
