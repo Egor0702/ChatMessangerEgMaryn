@@ -22,14 +22,22 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
             val response = call.execute()
             when (response.isSucceed()) {
                 true -> Either.Right(transform((response.body()!!)))
-                false -> Either.Left(Failure.ServerError)
+                false -> Either.Left(response.parseError())
             }
         } catch (exception: Throwable) {
             Either.Left(Failure.ServerError)
         }
     }
-}
 
-fun <T : BaseResponse> Response<T>.isSucceed(): Boolean {
-    return isSuccessful && body() != null && (body() as BaseResponse).success == 1
+    fun <T : BaseResponse> Response<T>.isSucceed(): Boolean {
+        return isSuccessful && body() != null && (body() as BaseResponse).success == 1
+    }
+
+    fun <T : BaseResponse> Response<T>.parseError(): Failure { // функция расширения для Response
+        val message = (body() as BaseResponse).message
+        return when (message) {
+            "email already exists" -> Failure.EmailAlreadyExistError
+            else -> Failure.ServerError
+        }
+    }
 }

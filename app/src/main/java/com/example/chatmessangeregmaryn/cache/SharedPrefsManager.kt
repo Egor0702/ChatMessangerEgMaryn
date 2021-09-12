@@ -14,7 +14,7 @@ class SharedPrefsManager @Inject constructor(private val prefs: SharedPreference
     fun saveToken(token: String): Either<Failure, None> {
         prefs.edit().apply {
             putString(ACCOUNT_TOKEN, token)
-        }.apply()
+        }.apply() // SharedPreference.apply() позволяет отобразить наши изменения в оригинальном SharedPreference
 
         return Either.Right(None())
     }
