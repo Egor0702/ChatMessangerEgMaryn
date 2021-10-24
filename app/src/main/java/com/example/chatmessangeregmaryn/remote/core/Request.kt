@@ -1,7 +1,7 @@
 package com.example.chatmessangeregmaryn.remote.core
 
 import com.example.chatmessangeregmaryn.domain.type.Either
-import com.example.chatmessangeregmaryn.domain.type.exception.Failure
+import com.example.chatmessangeregmaryn.domain.type.Failure
 import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
@@ -37,6 +37,8 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
         val message = (body() as BaseResponse).message
         return when (message) {
             "email already exists" -> Failure.EmailAlreadyExistError
+            "error in email or password" -> Failure.AuthError
+            "Token is invalid" -> Failure.TokenError
             else -> Failure.ServerError
         }
     }

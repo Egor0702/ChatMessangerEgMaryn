@@ -2,7 +2,7 @@ package com.example.chatmessangeregmaryn.domain.account
 
 import com.example.chatmessangeregmaryn.domain.type.None
 import com.example.chatmessangeregmaryn.domain.type.Either
-import com.example.chatmessangeregmaryn.domain.type.exception.Failure
+import com.example.chatmessangeregmaryn.domain.type.Failure
 
 interface AccountRepository {
     fun login(email: String, password: String): Either<Failure, AccountEntity>

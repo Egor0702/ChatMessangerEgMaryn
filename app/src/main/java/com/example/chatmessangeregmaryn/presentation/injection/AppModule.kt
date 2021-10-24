@@ -21,4 +21,5 @@ class AppModule(private val context: Context) {
     fun provideAccountRepository(remote: AccountRemote, cache: AccountCache): AccountRepository {
         return AccountRepositoryImpl(remote, cache)
     }
+
 }

@@ -6,23 +6,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.chatmessangeregmaryn.R
-import com.example.chatmessangeregmaryn.domain.type.exception.Failure
+import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.ui.activity.BaseActivity
 import com.example.chatmessangeregmaryn.ui.activity.base
+import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
-    abstract val layoutId: Int
     open val titleToolbar = R.string.app_name
     open val showToolbar = true
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var navigator: Navigator
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(layoutId, container, false)
-    }
 
     override fun onResume() {
         super.onResume()
@@ -55,7 +53,7 @@ abstract class BaseFragment : Fragment() {
 
 
     inline fun <reified T : ViewModel> viewModel(body: T.() -> Unit): T {
-        val vm = ViewModelProvider(this).get(T::class.java)
+        val vm = ViewModelProvider(this, viewModelFactory)[T::class.java]
         vm.body()
         return vm
     }
