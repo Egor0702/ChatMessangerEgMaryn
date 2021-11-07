@@ -16,6 +16,7 @@ class SharedPrefsManager @Inject constructor(private val prefs: SharedPreference
         const val ACCOUNT_STATUS = "account_status"
         const val ACCOUNT_DATE = "account_date"
         const val ACCOUNT_IMAGE = "account_image"
+        const val ACCOUNT_LASTSEEN = "account_lastseen"
     }
 
     fun saveToken(token: String): Either<Failure, None> {
@@ -38,7 +39,8 @@ class SharedPrefsManager @Inject constructor(private val prefs: SharedPreference
             putString(ACCOUNT_TOKEN, account.token)
             putString(ACCOUNT_STATUS, account.status)
             putLong(ACCOUNT_DATE, account.userDate)
-            putString(ACCOUNT_IMAGE, account.image)
+            putLong(ACCOUNT_IMAGE, account.image)
+            putLong(ACCOUNT_LASTSEEN, account.lastSeen)
         }.apply()
 
         return Either.Right(None())
@@ -55,7 +57,8 @@ class SharedPrefsManager @Inject constructor(private val prefs: SharedPreference
             prefs.getString(ACCOUNT_TOKEN, "")!!,
             prefs.getString(ACCOUNT_STATUS, "")!!,
             prefs.getLong(ACCOUNT_DATE, 0),
-            prefs.getString(ACCOUNT_IMAGE, "")!!
+            prefs.getLong(ACCOUNT_IMAGE, 0)!!,
+        prefs.getLong(ACCOUNT_LASTSEEN,0)
         )
         return Either.Right(account)
     }

@@ -2,6 +2,7 @@ package com.example.chatmessangeregmaryn.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.example.chatmessangeregmaryn.domain.account.*
+import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.domain.type.None
 import javax.inject.Inject
 

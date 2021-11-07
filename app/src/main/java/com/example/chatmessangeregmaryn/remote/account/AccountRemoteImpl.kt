@@ -29,7 +29,7 @@ class AccountRemoteImpl @Inject constructor(
         password: String,
         token: String
     ): Either<Failure, AccountEntity> {
-        return request.make(service.login(createLoginMap(email, password, token))) { it.user }
+        return request.make(service.login(createLoginMap(email, password, token))) {it.user}
     }
 
     override fun updateToken(userId: Long, token: String, oldToken: String): Either<Failure, None> {

@@ -1,6 +1,7 @@
 package com.example.chatmessangeregmaryn.remote.service
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,13 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ServiceFactory {
-    const val BASE_URL = "http://egor07.beget.tech/chat/rest_api/"
+    const val BASE_URL = "http://egormarynych.ru/chatserver/rest_api/"
 
     fun makeService(isDebug: Boolean): ApiService {
         val okHttpClient = makeOkHttpClient(
             makeLoggingInterceptor((isDebug))
         )
-        return makeService(okHttpClient, Gson())
+        val gson = GsonBuilder().setLenient().create()
+        return makeService(okHttpClient, gson)
     }
 
     private fun makeService(okHttpClient: OkHttpClient, gson: Gson): ApiService {
