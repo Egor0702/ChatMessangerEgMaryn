@@ -27,7 +27,7 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
             Log.d("Egor", "response: ${response.isSucceed()}")
             when (response.isSucceed()) {
                 true -> Either.Right(transform((response.body()!!)))
-                false -> Either.Left(response.parseError())
+                false -> Either.Left(Failure.ServerError)
             }
         } catch (exception: Throwable) {
             Log.d("Egor", "${exception.message}")

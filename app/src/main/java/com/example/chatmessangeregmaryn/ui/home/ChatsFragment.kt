@@ -5,4 +5,5 @@ import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
 
 class ChatsFragment : BaseFragment() {
     override val titleToolbar = R.string.chats
+    override val layoutId = R.layout.fragment_chats
 }

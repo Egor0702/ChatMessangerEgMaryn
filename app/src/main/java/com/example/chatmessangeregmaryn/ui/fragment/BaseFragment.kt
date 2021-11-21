@@ -14,6 +14,7 @@ import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
+    abstract val layoutId: Int
     open val titleToolbar = R.string.app_name
     open val showToolbar = true
     @Inject
@@ -21,6 +22,9 @@ abstract class BaseFragment : Fragment() {
     @Inject
     lateinit var navigator: Navigator
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(layoutId, container, false)
+    }
 
     override fun onResume() {
         super.onResume()

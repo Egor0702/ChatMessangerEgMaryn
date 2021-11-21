@@ -16,6 +16,7 @@ import com.example.chatmessangeregmaryn.ui.ext.onSuccess
 import javax.inject.Inject
 
 class RegisterFragment : BaseFragment() {
+    override val layoutId = R.layout.fragment_register
     override val titleToolbar = R.string.register
     lateinit var fragmentRegisterBinding: FragmentRegisterBinding
     private lateinit var accountViewModel: AccountViewModel

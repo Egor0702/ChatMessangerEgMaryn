@@ -16,10 +16,12 @@ class AccountRepositoryImpl(
         }.onNext {
             accountCache.saveAccount(it)
         }
+        throw java.lang.UnsupportedOperationException("")
     }
 
     override fun logout(): Either<Failure, None> {
         return accountCache.logout()
+        throw java.lang.UnsupportedOperationException("")
     }
 
     override fun register(email: String, name: String, password: String): Either<Failure, None> {
@@ -35,6 +37,7 @@ class AccountRepositoryImpl(
 
     override fun getCurrentAccount(): Either<Failure, AccountEntity> {
         return accountCache.getCurrentAccount()
+        throw java.lang.UnsupportedOperationException("")
     }
 
 
@@ -43,6 +46,7 @@ class AccountRepositoryImpl(
 
         return accountCache.getCurrentAccount()
             .flatMap { accountRemote.updateToken(it.id, token, it.token) }
+        throw java.lang.UnsupportedOperationException("")
     }
 
     override fun updateAccountLastSeen(): Either<Failure, None> {

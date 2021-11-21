@@ -16,6 +16,7 @@ import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
 
 class LoginFragment () : BaseFragment(){
 
+    override val layoutId: Int = R.layout.fragment_login
     override val titleToolbar = R.string.screen_login
     private lateinit var fragmentLoginBinding : FragmentLoginBinding
     private lateinit var accountViewModel: AccountViewModel
