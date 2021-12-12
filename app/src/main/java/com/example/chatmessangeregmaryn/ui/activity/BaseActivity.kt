@@ -14,32 +14,35 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatmessangeregmaryn.R
-import com.example.chatmessangeregmaryn.databinding.ActivityLayoutBinding
-import com.example.chatmessangeregmaryn.databinding.ToolbarBinding
+
 import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
 import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 import javax.inject.Inject
 
 
 abstract class BaseActivity : AppCompatActivity() {
+    init {
+        Log.d("Egor", "Всем хло, мы в BaseActivity")
+    }
     abstract val fragment: BaseFragment
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
     lateinit var navigator: Navigator
-    lateinit var activityLayoutBinding: ActivityLayoutBinding
-
+    open val contentId = R.layout.activity_layout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityLayoutBinding = ActivityLayoutBinding.inflate(layoutInflater)
-        setContentView(activityLayoutBinding.root) //устанавливаем общий для всех layout
+        setupContent()
 
-
-        setSupportActionBar(activityLayoutBinding.toolbar) // устанавливаем тул бар (без findViewById)
+        setSupportActionBar(toolbar) // устанавливаем тул бар (без findViewById)
         addFragment(savedInstanceState) // добавляем фрагмент
+    }
+    open fun setupContent() {
+        setContentView(contentId)
     }
 
     override fun onBackPressed() { //обработка нажатия пользователем кнопки "Назад"
@@ -62,7 +65,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun progressStatus(viewStatus: Int) { // устанавливаем видимость/невидимость экрана загрузки
         Log.d("Egor", "progressStatus")
-        activityLayoutBinding.toolbarProgressBar.visibility = viewStatus
+        toolbar.toolbar_progress_bar.visibility = viewStatus
     }
 
 

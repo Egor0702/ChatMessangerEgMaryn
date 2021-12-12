@@ -3,6 +3,7 @@ package com.example.chatmessangeregmaryn.ui.core.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.example.chatmessangeregmaryn.presentation.Authenticator
 import com.example.chatmessangeregmaryn.ui.activity.RegisterActivity
 import com.example.chatmessangeregmaryn.ui.home.HomeActivity
@@ -13,7 +14,9 @@ import javax.inject.Singleton
 @Singleton
 class Navigator
 @Inject constructor(private val authenticator: Authenticator) {
-
+init {
+    Log.d("Egor", "Всем хло, мы в Navigator")
+}
     fun showMain(context: Context) {
         when (authenticator.userLoggedIn()) {
             true -> showHome(context, false)
@@ -29,6 +32,7 @@ class Navigator
 }
 
 private inline fun <reified T> Context.startActivity(newTask: Boolean = false, args: Bundle? = null) {
+    Log.d("Egor", "Всем хло, мы в startActivity")
     this.startActivity(Intent(this, T::class.java).apply {
         if (newTask) {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
