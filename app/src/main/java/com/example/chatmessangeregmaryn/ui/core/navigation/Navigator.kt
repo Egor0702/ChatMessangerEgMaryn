@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.example.chatmessangeregmaryn.presentation.Authenticator
-import com.example.chatmessangeregmaryn.ui.activity.RegisterActivity
+import com.example.chatmessangeregmaryn.ui.register.RegisterActivity
 import com.example.chatmessangeregmaryn.ui.home.HomeActivity
 import com.example.chatmessangeregmaryn.ui.login.LoginActivity
 import javax.inject.Inject

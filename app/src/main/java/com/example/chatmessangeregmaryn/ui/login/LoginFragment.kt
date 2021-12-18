@@ -12,7 +12,7 @@ import com.example.chatmessangeregmaryn.presentation.viewmodel.AccountViewModel
 import com.example.chatmessangeregmaryn.ui.App
 import com.example.chatmessangeregmaryn.ui.ext.onFailure
 import com.example.chatmessangeregmaryn.ui.ext.onSuccess
-import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
+import com.example.chatmessangeregmaryn.ui.core.BaseFragment
 
 class LoginFragment () : BaseFragment(){
 

@@ -1,6 +1,5 @@
-package com.example.chatmessangeregmaryn.ui.fragment
+package com.example.chatmessangeregmaryn.ui.register
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +12,7 @@ import com.example.chatmessangeregmaryn.presentation.viewmodel.AccountViewModel
 import com.example.chatmessangeregmaryn.ui.App
 import com.example.chatmessangeregmaryn.ui.ext.onFailure
 import com.example.chatmessangeregmaryn.ui.ext.onSuccess
-import javax.inject.Inject
+import com.example.chatmessangeregmaryn.ui.core.BaseFragment
 
 class RegisterFragment : BaseFragment() {
     override val layoutId = R.layout.fragment_register

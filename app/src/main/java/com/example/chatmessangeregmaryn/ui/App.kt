@@ -1,16 +1,13 @@
 package com.example.chatmessangeregmaryn.ui
 
 import android.app.Application
-import android.util.Log
 import com.example.chatmessangeregmaryn.presentation.injection.*
-import com.example.chatmessangeregmaryn.ui.activity.BaseActivity
 import dagger.Component
-import com.example.chatmessangeregmaryn.ui.fragment.RegisterFragment
-import com.example.chatmessangeregmaryn.ui.activity.RegisterActivity
+import com.example.chatmessangeregmaryn.ui.register.RegisterFragment
+import com.example.chatmessangeregmaryn.ui.register.RegisterActivity
 import com.example.chatmessangeregmaryn.ui.core.navigation.RouteActivity
 import com.example.chatmessangeregmaryn.ui.home.ChatsFragment
 import com.example.chatmessangeregmaryn.ui.home.HomeActivity
-import com.example.chatmessangeregmaryn.ui.login.LoginActivity
 import com.example.chatmessangeregmaryn.ui.login.LoginFragment
 import com.example.chatmessangeregmaryn.ui.service.FirebaseService
 import javax.inject.Singleton
@@ -46,6 +43,9 @@ interface AppComponent {
     fun inject(fragment: RegisterFragment)
     fun inject(fragment:LoginFragment)
     fun inject(fragment:ChatsFragment)
+    fun inject(fragment: FriendsFragment)
+    fun inject (fragment: FriendRequestFragment)
     //services
     fun inject(service: FirebaseService)
+
 }

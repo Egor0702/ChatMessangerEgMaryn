@@ -1,12 +1,8 @@
 package com.example.chatmessangeregmaryn.ui.home
 
-import android.os.Bundle
 import com.example.chatmessangeregmaryn.R
-import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
+import com.example.chatmessangeregmaryn.ui.core.BaseFragment
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 
 class ChatsFragment : BaseFragment() {
     init {

@@ -1,4 +1,4 @@
-package com.example.chatmessangeregmaryn.ui.activity
+package com.example.chatmessangeregmaryn.ui.core
 
 import android.app.Activity
 import androidx.fragment.app.FragmentManager
@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,6 @@ import com.example.chatmessangeregmaryn.R
 
 import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
-import com.example.chatmessangeregmaryn.ui.fragment.BaseFragment
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
 import javax.inject.Inject
@@ -27,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
     init {
         Log.d("Egor", "Всем хло, мы в BaseActivity")
     }
-    abstract val fragment: BaseFragment
+    abstract var fragment: BaseFragment // var - чтобы обеспечить будущее изменение фрагмента
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject
@@ -52,12 +50,18 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun addFragment(savedInstanceState: Bundle?) { // добавляем фрагмент
+    fun addFragment(savedInstanceState: Bundle?, fragment: BaseFragment = this.fragment) { // добавляем фрагмент
         savedInstanceState ?: supportFragmentManager.inTransaction { //здесь ли бо добавляем, либо удаляем фрагмент
             add(R.id.fragmentContainer, fragment)
         }
     }
 
+    fun replaceFragment(fragment: BaseFragment) { // замена фрагмента активити
+        this.fragment = fragment
+        supportFragmentManager.inTransaction {
+            replace(R.id.fragmentContainer, fragment)
+        }
+    }
 
     fun showProgress() = progressStatus(View.VISIBLE) // передаем параметр, который устанавливает видимость для экрана загрузки
 
@@ -84,6 +88,8 @@ abstract class BaseActivity : AppCompatActivity() {
             is Failure.EmailAlreadyExistError -> showMessage(getString(R.string.error_email_already_exist))
             is Failure.AuthError -> showMessage(getString(R.string.error_auth))
             is Failure.TokenError -> navigator.showLogin(this)
+            is Failure.AlreadyFriendError -> showMessage(getString(R.string.error_already_friend))
+            is Failure.AlreadyRequestedFriendError -> showMessage(getString(R.string.error_already_requested_friend))
         }
     }
 

@@ -27,7 +27,7 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
             Log.d("Egor", "response: ${response.isSucceed()}")
             when (response.isSucceed()) {
                 true -> Either.Right(transform((response.body()!!)))
-                false -> Either.Left(Failure.ServerError)
+                false -> Either.Left(response.parseError())
             }
         } catch (exception: Throwable) {
             Log.d("Egor", "${exception.message}")
@@ -45,6 +45,10 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
             "email already exists" -> Failure.EmailAlreadyExistError
             "error in email or password" -> Failure.AuthError
             "Token is invalid" -> Failure.TokenError
+            "this contact is already in your friends list" -> Failure.AlreadyFriendError
+            "already found in your friend requests",
+            "you requested adding this friend before" -> Failure.AlreadyRequestedFriendError
+            "No Contact has this email" -> Failure.ContactNotFoundError
             else -> Failure.ServerError
         }
     }

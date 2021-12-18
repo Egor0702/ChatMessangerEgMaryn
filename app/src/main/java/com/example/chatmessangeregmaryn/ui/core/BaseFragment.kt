@@ -1,4 +1,4 @@
-package com.example.chatmessangeregmaryn.ui.fragment
+package com.example.chatmessangeregmaryn.ui.core
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatmessangeregmaryn.R
 import com.example.chatmessangeregmaryn.domain.type.Failure
-import com.example.chatmessangeregmaryn.ui.activity.BaseActivity
-import com.example.chatmessangeregmaryn.ui.activity.base
 import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
 import javax.inject.Inject
 
