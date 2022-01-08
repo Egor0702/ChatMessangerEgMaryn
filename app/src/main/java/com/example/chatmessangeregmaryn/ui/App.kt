@@ -6,6 +6,8 @@ import dagger.Component
 import com.example.chatmessangeregmaryn.ui.register.RegisterFragment
 import com.example.chatmessangeregmaryn.ui.register.RegisterActivity
 import com.example.chatmessangeregmaryn.ui.core.navigation.RouteActivity
+import com.example.chatmessangeregmaryn.ui.friends.FriendRequestsFragment
+import com.example.chatmessangeregmaryn.ui.friends.FriendsFragment
 import com.example.chatmessangeregmaryn.ui.home.ChatsFragment
 import com.example.chatmessangeregmaryn.ui.home.HomeActivity
 import com.example.chatmessangeregmaryn.ui.login.LoginFragment
@@ -44,7 +46,7 @@ interface AppComponent {
     fun inject(fragment:LoginFragment)
     fun inject(fragment:ChatsFragment)
     fun inject(fragment: FriendsFragment)
-    fun inject (fragment: FriendRequestFragment)
+    fun inject (fragment: FriendRequestsFragment)
     //services
     fun inject(service: FirebaseService)
 

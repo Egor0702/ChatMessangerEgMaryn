@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-
     <androidx.drawerlayout.widget.DrawerLayout
+    tools:openDrawer="left"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/drawerLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-            android:id="@+id/drawerLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            tools:openDrawer="left">
+    <include android:id="@+id/toolbarContainer"
+        layout="@layout/toolbar"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <FrameLayout android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:id="@+id/fragmentContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarContainer"/>
 
-            <include
-                    android:id="@+id/toolbarContainer"
-                    layout="@layout/toolbar" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-            <FrameLayout
-                    android:id="@+id/fragmentContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarContainer" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<include  android:id="@+id/navigation"
+    layout="@layout/navigation"/>
 
-
-        <include
-                android:id="@+id/navigation"
-                layout="@layout/navigation" />
-
-    </androidx.drawerlayout.widget.DrawerLayout>
-
-</layout>
+</androidx.drawerlayout.widget.DrawerLayout>

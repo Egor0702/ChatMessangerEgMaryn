@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout
+    android:background="@android:color/white"
+    android:padding="16dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/drawer_layout"
+    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ScrollView android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:isScrollContainer="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
+
+    <RelativeLayout android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+    <com.andreabaccega.widget.FormEditText
+        android:background="@drawable/rounded_edittext_register_login"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/etEmail"
+        whatever:emptyErrorString="@string/error_field_must_not_be_empty"
+        whatever:testErrorString="@string/error_email_address_not_valid"
+        whatever:testType="email"
+        android:textSize="@dimen/medium_text_size"
+        android:textColorHint="@android:color/darker_gray"
+        android:textColor="@color/darkGrey"
+        android:scrollbars="vertical"
+        android:maxLines="2"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
+        android:gravity="start|center_vertical"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"/>
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/rlActions"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/etEmail">
+
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true">
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/btnAdd"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:text="@string/send_request"
+        android:textAllCaps="false"
+        android:shadowRadius="5"
+        android:shadowDy="0"
+        android:shadowDx="0"
+        android:shadowColor="#E3BFE3"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        style="@style/Button.Primary"/>
+
+</RelativeLayout>
+</RelativeLayout>
+</RelativeLayout>
+</ScrollView>
+</RelativeLayout>

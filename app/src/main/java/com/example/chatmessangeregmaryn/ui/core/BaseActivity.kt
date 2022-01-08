@@ -80,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun handleFailure(failure: Failure?) { // в зависимости от типа ошибки определяем содержимое Тоста
+    open fun handleFailure(failure: Failure?) { // в зависимости от типа ошибки определяем содержимое Тоста
         hideProgress() // убираем экран загрузки
         when (failure) {
             is Failure.NetworkConnectionError -> showMessage(getString(R.string.error_network))

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:divider="@drawable/contact_divider"
+    android:focusable="true"
+    android:clickable="true"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:id="@+id/rlMain"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgPhoto"
+        android:layout_height="@dimen/account_photo_dim"
+        android:layout_width="@dimen/account_photo_dim"
+        android:src="@drawable/ic_account_circle"
+        android:layout_centerVertical="true"/>
+
+
+    <LinearLayout
+        android:id="@+id/contact_name_and_status"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/small_margin"
+        android:padding="8dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_toEndOf="@+id/imgPhoto"
+        android:layout_toRightOf="@+id/imgPhoto">
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="@string/name"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#191919"
+        android:maxLines="1"
+        android:gravity="center"
+        android:layout_marginBottom="2dp"/>
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="@string/status"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+    <FrameLayout
+        android:focusable="true"
+        android:clickable="true"
+        android:id="@+id/btnRemove"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_close_black_24dp"
+        android:padding="8dp"
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@color/darkGrey"
+        app:tint="@color/white" />
+
+</FrameLayout>
+</LinearLayout>
+</RelativeLayout>
