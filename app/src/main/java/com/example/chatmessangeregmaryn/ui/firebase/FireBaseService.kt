@@ -27,12 +27,12 @@ class FirebaseService : FirebaseMessagingService() {
         Handler(Looper.getMainLooper()).post { // делегирование обработки и отображения нотификации объекту NotificationHelper. При помощи Handler(MainLooper).post выражение запущено в UI потоке.
             notificationHelper.sendNotification(remoteMessage)
         }
-
+    }
         override fun onNewToken(token: String?) {
             Log.e("fb token", ": $token")
             if (token != null) {
                 updateToken(UpdateToken.Params(token))
             }
         }
-    }
+
 }

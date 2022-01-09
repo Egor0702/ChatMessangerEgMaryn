@@ -14,7 +14,7 @@ import com.example.chatmessangeregmaryn.ui.App
 import com.example.chatmessangeregmaryn.ui.ext.onFailure
 import com.example.chatmessangeregmaryn.ui.ext.onSuccess
 import androidx.databinding.DataBindingUtil
-import com.example.chatmessangeregmaryn.databinding.ActivityNavigation1Binding
+import com.example.chatmessangeregmaryn.databinding.ActivityNavigationBinding
 import com.example.chatmessangeregmaryn.domain.friends.FriendEntity
 import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.presentation.viewmodel.FriendsViewModel
@@ -22,8 +22,6 @@ import com.example.chatmessangeregmaryn.ui.core.BaseActivity
 import com.example.chatmessangeregmaryn.ui.core.BaseFragment
 import com.example.chatmessangeregmaryn.ui.friends.FriendRequestsFragment
 import com.example.chatmessangeregmaryn.ui.friends.FriendsFragment
-import kotlinx.android.synthetic.main.activity_navigation1.*
-import kotlinx.android.synthetic.main.navigation.*
 import javax.inject.Inject
 
 
@@ -32,15 +30,15 @@ class HomeActivity : BaseActivity() {
         Log.d("Egor", "Всем хло, мы в HomeActivity")
     }
     override var fragment: BaseFragment = ChatsFragment()
-    override val contentId = R.layout.activity_navigation1
-    private lateinit var activityNavigationBinding: ActivityNavigation1Binding
+    override val contentId = R.layout.activity_navigation
+    private lateinit var activityNavigationBinding: ActivityNavigationBinding
 
     private lateinit var accountViewModel: AccountViewModel
     @Inject
     lateinit var friendsViewModel: FriendsViewModel
 
     override fun setupContent() {
-        activityNavigationBinding = DataBindingUtil.setContentView(this, R.layout.activity_navigation1)
+        activityNavigationBinding = DataBindingUtil.setContentView(this, contentId)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,16 +71,16 @@ class HomeActivity : BaseActivity() {
             closeDrawer()
         }
         activityNavigationBinding.navigation.btnAddFriend.setOnClickListener {
-            if (containerAddFriend.visibility == View.VISIBLE) {
-                containerAddFriend.visibility = View.GONE
+            if (activityNavigationBinding.navigation.containerAddFriend.visibility == View.VISIBLE) {
+                activityNavigationBinding.navigation.containerAddFriend.visibility = View.GONE
             } else {
-                containerAddFriend.visibility = View.VISIBLE
+                activityNavigationBinding.navigation.containerAddFriend.visibility = View.VISIBLE
             }
         }
         activityNavigationBinding.navigation.btnAdd.setOnClickListener {
             hideSoftKeyboard()
             showProgress()
-            friendsViewModel.addFriend(etEmail.text.toString())
+            friendsViewModel.addFriend(activityNavigationBinding.navigation.etEmail.text.toString())
         }
         activityNavigationBinding.navigation.btnFriends.setOnClickListener {
             replaceFragment(FriendsFragment())
@@ -91,10 +89,10 @@ class HomeActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.requestContainer, FriendRequestsFragment()).commit()
         activityNavigationBinding.navigation.btnRequests.setOnClickListener {
             friendsViewModel.getFriendRequests()
-            if (requestContainer.visibility == View.VISIBLE) {
-                requestContainer.visibility = View.GONE
+            if ( activityNavigationBinding.navigation.requestContainer.visibility == View.VISIBLE) {
+                activityNavigationBinding.navigation.requestContainer.visibility = View.GONE
             } else {
-                requestContainer.visibility = View.VISIBLE
+                activityNavigationBinding.navigation.requestContainer.visibility = View.VISIBLE
             }
         }
     }
@@ -114,12 +112,12 @@ class HomeActivity : BaseActivity() {
     }
     private fun openDrawer() {
         hideSoftKeyboard()
-        drawerLayout.openDrawer(navigationView)
+        activityNavigationBinding.drawerLayout.openDrawer(activityNavigationBinding.navigation.navigationView)
     }
 
     private fun closeDrawer() {
         hideSoftKeyboard()
-        drawerLayout.closeDrawer(navigationView)
+        activityNavigationBinding.drawerLayout.closeDrawer(activityNavigationBinding.navigation.navigationView)
     }
 
     private fun handleAccount(accountEntity: AccountEntity?) {
@@ -146,7 +144,7 @@ class HomeActivity : BaseActivity() {
     private fun handleFriendRequests(requests: List<FriendEntity>?) {
         if (requests?.isEmpty() == true) {
             activityNavigationBinding.navigation.requestContainer.visibility = View.GONE
-            if (drawerLayout.isDrawerOpen(navigationView)) {
+            if (activityNavigationBinding.drawerLayout.isDrawerOpen(activityNavigationBinding.navigation.navigationView)) {
                 showMessage("Нет входящих приглашений.")
             }
         }
