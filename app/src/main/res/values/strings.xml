@@ -3,6 +3,8 @@
     <string name="screen_register">Регистрация</string>
     <string name="screen_login">Авторизация</string>
     <string name="screen_friends">Друзья</string>
+    <string name="screen_account">Аккаунт</string>
+    <string name="screen_user">Пользователь</string>
     <string name="error_network">Нет сетевого подключения.</string>
     <string name="error_server">Ошибка сервера.</string>
     <string name="error_email_already_exist">Адрес электронной почты уже существует.</string>
@@ -11,6 +13,9 @@
     <string name="error_already_requested_friend">Запрос дружбы уже отправлен.</string>
     <string name="error_contact_not_found">Пользователь не найден.</string>
     <string name="error_password_mismatch">Пароли не совпадают</string>
+    <string name="error_wrong_password">Неправильный пароль</string>
+    <string name="error_picking_file">Ошибка при обработке файла, попробуйте еще раз</string>
+    <string name="error_empty_password">Поле пароля не может быть пустым</string>
     <string name="email">Email</string>
     <string name="password">Пароль</string>
     <string name="confirm_password">Подтвердите пароль</string>
@@ -44,4 +49,11 @@
     <string name="message_text_promt_app">Установи приложение для персонального чата:</string>
     <string name="message_subject_promt_app">Привет, пообщаемся?</string>
     <string name="url_google_play">https://play.google.com/store/apps/details?id=</string>
+    <string name="friend_request">Запрос в друзья</string>
+    <string name="friend_request_approved">Запрос в друзья подтвержден</string>
+    <string name="friend_request_cancelled">Запрос в друзья отменен</string>
+    <string name="pick">Выберите фото</string>
+    <string name="camera">Камера</string>
+    <string name="gallery">Галерея</string>
+    <string name="success_edit_user">Данные обновлены</string>
 </resources>

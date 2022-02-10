@@ -2,6 +2,7 @@ package com.example.chatmessangeregmaryn.ui.friends
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.chatmessangeregmaryn.R
 import com.example.chatmessangeregmaryn.domain.friends.FriendEntity
@@ -13,6 +14,9 @@ import com.example.chatmessangeregmaryn.ui.ext.onFailure
 import com.example.chatmessangeregmaryn.ui.ext.onSuccess
 
 class FriendsFragment : BaseListFragment() {
+    init {
+        Log.d("Egor", "Всем хло, мы в FriendsAdapter")
+    }
     override val viewAdapter = FriendsAdapter()
 
     lateinit var friendsViewModel: FriendsViewModel
@@ -20,11 +24,13 @@ class FriendsFragment : BaseListFragment() {
     override val titleToolbar = R.string.screen_friends
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("Egor", "FriendsFragment onCreate()")
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Egor", "FriendsFragment onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
 
         friendsViewModel = viewModel {
@@ -37,12 +43,16 @@ class FriendsFragment : BaseListFragment() {
             (it as? FriendEntity)?.let {
                 when (v.id) {
                     R.id.btnRemove -> showDeleteFriendDialog(it)
+                    else -> {
+                        navigator.showUser(requireActivity(), it)
+                    }
                 }
             }
         }
     }
 
     override fun onResume() {
+        Log.d("Egor", "FriendsFragment onResume()")
         super.onResume()
         showProgress()
         friendsViewModel.getFriends()
@@ -50,6 +60,7 @@ class FriendsFragment : BaseListFragment() {
 
 
     private fun showDeleteFriendDialog(entity: FriendEntity) {
+        Log.d("Egor", "FriendsFragment showDeleteFriendDialog()")
         activity?.let {
             AlertDialog.Builder(it)
                 .setMessage(getString(R.string.delete_friend))
@@ -66,6 +77,7 @@ class FriendsFragment : BaseListFragment() {
 
 
     private fun handleFriends(friends: List<FriendEntity>?) {
+        Log.d("Egor", "FriendsFragment handleFriends()")
         hideProgress()
         if (friends != null) {
             viewAdapter.clear()
@@ -75,6 +87,7 @@ class FriendsFragment : BaseListFragment() {
     }
 
     private fun handleDeleteFriend(none: None?) {
+        Log.d("Egor", "FriendsFragment handleDeleteFriend()")
         friendsViewModel.getFriends()
     }
 }

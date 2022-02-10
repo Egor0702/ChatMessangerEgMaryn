@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
+import android.util.Log
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,8 +15,13 @@ import javax.inject.Singleton
 @Singleton
 class NetworkHandler @Inject constructor(private val context: Context) {
     val isConnected get() = networkInfo()
+    init {
+        Log.d("Egor", "Всем хло, мы в NetworkHandler")
+    }
+
 
     private fun networkInfo(): Boolean {
+        Log.d("Egor", "NetworkHandler networkInfo()")
         val connectivityManager = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val capabilities: NetworkCapabilities? = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork())

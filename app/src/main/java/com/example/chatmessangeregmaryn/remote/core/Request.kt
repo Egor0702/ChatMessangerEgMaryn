@@ -10,9 +10,12 @@ import javax.inject.Singleton
 
 @Singleton
 class Request @Inject constructor(private val networkHandler: NetworkHandler) {
+    init {
+        Log.d("Egor", "Всем хло мы в Request")
+    }
 
     fun <T : BaseResponse, R> make(call: Call<T>, transform: (T) -> R): Either<Failure, R> {
-        Log.d("Egor", "Is network: ${networkHandler.isConnected}")
+        Log.d("Egor", "Request make(). Is network: ${networkHandler.isConnected}")
         return when (networkHandler.isConnected) {
             true -> execute(call, transform)
             false, null -> Either.Left(Failure.NetworkConnectionError)
@@ -20,11 +23,10 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
     }
 
     private fun <T : BaseResponse, R> execute(call: Call<T>, transform: (T) -> R): Either<Failure, R> {
-        Log.d("Egor", "Мы в execute")
+        Log.d("Egor", "Request execute()")
         return try {
             Log.d("Egor", "Мы в execute1")
             val response = call.execute()
-            Log.d("Egor", "response: ${response.isSucceed()}")
             when (response.isSucceed()) {
                 true -> Either.Right(transform((response.body()!!)))
                 false -> Either.Left(response.parseError())
@@ -36,12 +38,15 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
     }
 
     fun <T : BaseResponse> Response<T>.isSucceed(): Boolean {
+        Log.d("Egor", "Request isSucceed()")
         return isSuccessful && body() != null && (body() as BaseResponse).success == 1
     }
 
     fun <T : BaseResponse> Response<T>.parseError(): Failure { // функция расширения для Response
+        Log.d("Egor", "Request parseError()")
         val message = (body() as BaseResponse).message
         return when (message) {
+            "there is a user has this email",
             "email already exists" -> Failure.EmailAlreadyExistError
             "error in email or password" -> Failure.AuthError
             "Token is invalid" -> Failure.TokenError

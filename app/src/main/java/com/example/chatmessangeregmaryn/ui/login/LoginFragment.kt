@@ -15,6 +15,9 @@ import com.example.chatmessangeregmaryn.ui.ext.onSuccess
 import com.example.chatmessangeregmaryn.ui.core.BaseFragment
 
 class LoginFragment () : BaseFragment(){
+    init {
+        Log.d("Egor", "Всем хло, мы в LoginFragment")
+    }
 
     override val layoutId: Int = R.layout.fragment_login
     override val titleToolbar = R.string.screen_login
@@ -22,6 +25,7 @@ class LoginFragment () : BaseFragment(){
     private lateinit var accountViewModel: AccountViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("Egor", "LoginFragment onCreate()")
         super.onCreate(savedInstanceState)
         App.appComponent.inject(this)
 
@@ -36,12 +40,16 @@ class LoginFragment () : BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("Egor", "LoginFragment onCreateView()")
         fragmentLoginBinding = FragmentLoginBinding.inflate(inflater, container, false)
         val view = fragmentLoginBinding.root
         return view
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Egor", "LoginFragment onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
         fragmentLoginBinding.btnLogin.setOnClickListener {
             Log.d("Egor", "In btnLogin")
@@ -54,6 +62,7 @@ class LoginFragment () : BaseFragment(){
     }
 
     private fun validateFields() {
+        Log.d("Egor", "LoginFragment validateFields()")
         hideSoftKeyboard()
         val allFields = arrayOf(fragmentLoginBinding.etEmail, fragmentLoginBinding.etPassword)
         var allValid = true
@@ -66,11 +75,13 @@ class LoginFragment () : BaseFragment(){
     }
 
     private fun login(email: String, password: String) {
+        Log.d("Egor", "LoginFragment login()")
         showProgress()
         accountViewModel.login(email, password)
     }
 
     private fun renderAccount(account: AccountEntity?) {
+        Log.d("Egor", "LoginFragment renderAccount()")
         hideProgress()
         activity?.let {
             navigator.showHome(it)

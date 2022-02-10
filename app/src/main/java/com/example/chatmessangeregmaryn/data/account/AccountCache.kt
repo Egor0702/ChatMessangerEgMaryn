@@ -10,5 +10,5 @@ interface AccountCache {
     fun saveToken(token: String): Either<Failure, None>
     fun logout(): Either<Failure, None>
     fun getCurrentAccount(): Either<Failure, AccountEntity>
-    fun saveAccount(account: AccountEntity): Either<Failure, None>
+    fun saveAccount(account: AccountEntity): Either<Failure, AccountEntity>
 }

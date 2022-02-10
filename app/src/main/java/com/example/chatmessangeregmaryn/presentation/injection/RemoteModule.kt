@@ -1,5 +1,6 @@
 package com.example.chatmessangeregmaryn.presentation.injection
 
+import android.util.Log
 import dagger.Module
 import dagger.Provides
 import com.example.chatmessangeregmaryn.BuildConfig
@@ -17,15 +18,21 @@ class RemoteModule {
 
     @Singleton
     @Provides
-    fun provideApiService(): ApiService = ServiceFactory.makeService(BuildConfig.DEBUG)
+    fun provideApiService(): ApiService {
+        Log.d("Egor", "RemotModule provideApiService()")
+        return ServiceFactory.makeService(BuildConfig.DEBUG)
+    }
 
     @Singleton
     @Provides
-    fun provideAccountRemote(request: Request, apiService: ApiService): AccountRemote =
-            AccountRemoteImpl(request, apiService)
+    fun provideAccountRemote(request: Request, apiService: ApiService): AccountRemote {
+        Log.d("Egor", "RemotModule provideAccountRemote()")
+        return AccountRemoteImpl(request, apiService)
+    }
     @Singleton
     @Provides
     fun provideFriendsRemote(request: Request, apiService: ApiService): FriendsRemote {
+        Log.d("Egor", "RemotModule provideFriendsRemote()")
         return FriendsRemoteImpl(request, apiService)
     }
 

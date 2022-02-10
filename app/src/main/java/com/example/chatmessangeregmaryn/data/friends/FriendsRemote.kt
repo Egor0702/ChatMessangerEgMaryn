@@ -6,6 +6,7 @@ import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.domain.type.None
 
 interface FriendsRemote { // contains function for interacting with friends on the server
+
     fun getFriends(userId: Long, token: String): Either<Failure, List<FriendEntity>> // get list of friends of current user
     fun getFriendRequests(userId: Long, token: String): Either<Failure, List<FriendEntity>> // getting a list of incoming invitations to add to friends
 

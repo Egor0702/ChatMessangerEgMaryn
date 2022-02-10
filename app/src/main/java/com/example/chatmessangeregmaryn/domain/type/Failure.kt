@@ -10,4 +10,5 @@ sealed class Failure {
     object AlreadyRequestedFriendError : Failure() // ошибка повторного запроса на добавление в друзья
     object ContactNotFoundError : Failure() // ошибка при добавлении в друзья несуществующего пользователя
     object NoSavedAccountsError : Failure() //ошибка получения текущего аккаунта, при его отсутствии
+    object FilePickError : Failure() //  объект для обозначения ошибки выбора файла.
 }

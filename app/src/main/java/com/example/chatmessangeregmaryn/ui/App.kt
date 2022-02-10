@@ -1,7 +1,10 @@
 package com.example.chatmessangeregmaryn.ui
 
 import android.app.Application
+import android.util.Log
 import com.example.chatmessangeregmaryn.presentation.injection.*
+import com.example.chatmessangeregmaryn.ui.account.AccountActivity
+import com.example.chatmessangeregmaryn.ui.account.AccountFragment
 import dagger.Component
 import com.example.chatmessangeregmaryn.ui.register.RegisterFragment
 import com.example.chatmessangeregmaryn.ui.register.RegisterActivity
@@ -15,6 +18,9 @@ import com.example.chatmessangeregmaryn.ui.service.FirebaseService
 import javax.inject.Singleton
 
 class App : Application() {
+    init {
+        Log.d("Egor", "Всем хло, мы в App")
+    }
 
     companion object {
         lateinit var appComponent: AppComponent
@@ -22,7 +28,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
 
         initAppComponent()
     }
@@ -38,15 +43,17 @@ class App : Application() {
 interface AppComponent {
     // в этих методах объявляем, где будут использоваться инъекция, описанная в модуле выше
     // activity
-    fun inject(activity: RegisterActivity)
+    fun inject (activity: RegisterActivity)
     fun inject(activity: HomeActivity)
     fun inject(activity: RouteActivity)
+    fun inject(activity: AccountActivity)
     //fragments
     fun inject(fragment: RegisterFragment)
     fun inject(fragment:LoginFragment)
     fun inject(fragment:ChatsFragment)
     fun inject(fragment: FriendsFragment)
     fun inject (fragment: FriendRequestsFragment)
+    fun inject(fragment: AccountFragment)
     //services
     fun inject(service: FirebaseService)
 

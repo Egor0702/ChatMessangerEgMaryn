@@ -11,6 +11,9 @@ import com.google.firebase.messaging.RemoteMessage
 import javax.inject.Inject
 
 class FirebaseService : FirebaseMessagingService() {
+    init {
+        Log.d("Egor", "Всем хло, мы в FirebaseService")
+    }
 
     @Inject
     lateinit var updateToken: UpdateToken
@@ -24,11 +27,13 @@ class FirebaseService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+        Log.d("Egor", "FirebaseService onMessageReceived()")
         Handler(Looper.getMainLooper()).post { // делегирование обработки и отображения нотификации объекту NotificationHelper. При помощи Handler(MainLooper).post выражение запущено в UI потоке.
             notificationHelper.sendNotification(remoteMessage)
         }
     }
         override fun onNewToken(token: String?) {
+            Log.d("Egor", "FirebaseService onNewToken()")
             Log.e("fb token", ": $token")
             if (token != null) {
                 updateToken(UpdateToken.Params(token))

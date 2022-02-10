@@ -1,5 +1,6 @@
 package com.example.chatmessangeregmaryn.ui.core
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,9 @@ import com.example.chatmessangeregmaryn.ui.core.navigation.Navigator
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
+    init {
+        Log.d("Egor", "Всем хло, мы в BaseFragment")
+    }
     abstract val layoutId: Int
     open val titleToolbar = R.string.app_name
     open val showToolbar = true
@@ -21,10 +25,12 @@ abstract class BaseFragment : Fragment() {
     lateinit var navigator: Navigator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        Log.d("Egor", "BaseFragment onCreateView")
         return inflater.inflate(layoutId, container, false)
     }
 
     override fun onResume() {
+        Log.d("Egor", "BaseFragment onResume")
         super.onResume()
 
         base {
@@ -50,11 +56,13 @@ abstract class BaseFragment : Fragment() {
 
 
     inline fun base(block: BaseActivity.() -> Unit) {
+        Log.d("Egor", "BaseFragment base()")
         activity.base(block) // activity== getActivity()
     }
 
 
     inline fun <reified T : ViewModel> viewModel(body: T.() -> Unit): T {
+        Log.d("Egor", "BaseFragment viewVodel()")
         val vm = ViewModelProvider(this, viewModelFactory)[T::class.java]
         vm.body()
         return vm

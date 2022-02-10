@@ -23,7 +23,7 @@ class RegisterFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Egor", "In registerFragment")
         super.onCreate(savedInstanceState)
-        App.appComponent.inject(this)
+        App.appComponent.inject(this) // вызывая данный метод мы внедряем все зависимости, имеющиеся в AppComponent, в данный фрагмент
 
         accountViewModel = viewModel {
             onSuccess(registerData, ::handleRegister)

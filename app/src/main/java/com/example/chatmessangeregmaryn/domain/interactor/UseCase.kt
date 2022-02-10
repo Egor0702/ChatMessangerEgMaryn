@@ -1,5 +1,6 @@
 package com.example.chatmessangeregmaryn.domain.interactor
 
+import android.util.Log
 import com.example.chatmessangeregmaryn.domain.type.Either
 import com.example.chatmessangeregmaryn.domain.type.Failure
 import kotlinx.coroutines.*
@@ -22,6 +23,7 @@ abstract class UseCase<out Type, in Params> {
     abstract suspend fun run(params: Params): Either<Failure, Type>
 
     operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
+        Log.d("Egor", "UseCase invoke")
         unsubscribe()
         parentJob = Job()
 
@@ -35,6 +37,7 @@ abstract class UseCase<out Type, in Params> {
     }
 
     fun unsubscribe() {
+        Log.d("Egor", "UseCase unsubscribe()")
         parentJob.apply {
             cancelChildren()
             cancel()
