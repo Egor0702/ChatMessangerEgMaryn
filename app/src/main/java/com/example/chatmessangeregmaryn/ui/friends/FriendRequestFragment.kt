@@ -42,44 +42,45 @@ class FriendRequestsFragment : BaseListFragment() {
                 onFailure(failureData, ::handleFailure)
             }
         }
-        setOnItemClickListener { item, v ->
+        setOnItemClickListener { item, v -> // обрабатываем клик пользователя на списке с приглашениями
+            Log.d("Egor", "FriendRequestsFragment  setOnItemClickListener")
             (item as? FriendEntity)?.let {
                 when (v.id) {
-                    R.id.btnApprove -> {
-                        showProgress()
-                        friendsViewModel.approveFriend(it)
+                    R.id.btnApprove -> { // если пользователь нажимает галочку, т.е. принмает приглашение в друзья:
+                        showProgress() // отображаем прогресс бар
+                        friendsViewModel.approveFriend(it) // запускаем механизм принятия пользователя в друзья
                     }
-                    R.id.btnCancel -> {
-                        showProgress()
-                        friendsViewModel.cancelFriend(it)
+                    R.id.btnCancel -> { // если пользователь нажимает крестик, т.е. отказывается принять в друзья пользовтеля, то:
+                        showProgress() // отображаем прошресс бао
+                        friendsViewModel.cancelFriend(it) // запускаем ссответсвующий метод
                     }
-                    else -> {
-                    activity?.let { act ->
-                        navigator.showUser(act, it)
+                    else -> { // если клик на пользователя, который добавляется, то направляем его в профиль друга
+                    activity?.let { activity -> // activity ищзвращает activity, который связан с данным fragment
+                        navigator.showUser(activity, it) // передаем в метод шоуюзер контекст и объект FriendEntity
                     }
                 }
                 }
             }
         }
     }
-    override fun onResume() {
+    override fun onResume() { // когда пв фокус пользователя выводится данный фрагмент делаем запрос и отображаем все поступвшие запросы в друзья
         Log.d("Egor", "FriendRequestsFragment onResume()")
         super.onResume()
         showProgress()
         friendsViewModel.getFriendRequests()
     }
 
-    private fun handleFriendRequests(requests: List<FriendEntity>?) {
+    private fun handleFriendRequests(requests: List<FriendEntity>?) { // в случае, если список на который мы подписаны обновлен, выполняются действия:
         Log.d("Egor", "FriendRequestsFragment handleFriendRequests()")
-        hideProgress()
-        if (requests != null) {
-            viewAdapter.clear()
-            viewAdapter.add(requests)
-            viewAdapter.notifyDataSetChanged()
+        hideProgress() // закрываем прогресс бар
+        requests?.let { // если requests не null
+            viewAdapter.clear() // очищаем имеющийся список в recyclerview
+            viewAdapter.add(requests) // добавляем новый список
+            viewAdapter.notifyDataSetChanged() // бновляем данные, чтобы они отобразились на экране пользователя
         }
     }
 
-    private fun handleFriendRequestAction(none: None?) {
+    private fun handleFriendRequestAction(none: None?) { // повторное получение списка. Вызывается, когда пользователь принял или отклонил приглашение
         Log.d("Egor", "FriendRequestsFragment handleFriendRequestAction()")
         hideProgress()
         friendsViewModel.getFriendRequests()

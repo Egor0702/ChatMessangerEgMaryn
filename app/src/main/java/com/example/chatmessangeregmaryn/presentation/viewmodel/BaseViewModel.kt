@@ -19,6 +19,7 @@ abstract class BaseViewModel : ViewModel() {
         updateProgress(false)
     }
     protected fun updateProgress(progress: Boolean) {
+        Log.d("Egor", "BaseViewModel updateProgress()")
         this.progressData.value = progress
     }
 }

@@ -128,14 +128,14 @@ class HomeActivity : BaseActivity() {
         activityNavigationBinding = DataBindingUtil.setContentView(this, contentId)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean { // метод, который вызывается при вызове меню
         Log.d("Egor", "HomeActivity onOptionsItemSelected()")
         when (item?.itemId) {
-            android.R.id.home -> {
-                if (activityNavigationBinding.drawerLayout.isDrawerOpen(activityNavigationBinding.navigation.navigationView)) {
-                    activityNavigationBinding.drawerLayout.closeDrawer(activityNavigationBinding.navigation.navigationView)
+            android.R.id.home -> { // случай, когда мы нажали иконку меню
+                if (activityNavigationBinding.drawerLayout.isDrawerOpen(activityNavigationBinding.navigation.navigationView)) { // если меню открыто
+                    activityNavigationBinding.drawerLayout.closeDrawer(activityNavigationBinding.navigation.navigationView) // закроем его
                 } else {
-                    activityNavigationBinding.drawerLayout.openDrawer(activityNavigationBinding.navigation.navigationView)
+                    activityNavigationBinding.drawerLayout.openDrawer(activityNavigationBinding.navigation.navigationView) // иначе просто открываем меню
                 }
             }
         }

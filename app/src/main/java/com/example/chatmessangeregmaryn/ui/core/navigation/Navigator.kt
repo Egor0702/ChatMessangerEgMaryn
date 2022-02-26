@@ -45,29 +45,32 @@ init {
     fun showSignUp(context: Context) = context.startActivity<RegisterActivity>()
 
     fun showAccount(context: Context) {
+        Log.d("Egor", "Navigator showAccount()")
         context.startActivity<AccountActivity>()
     }
 
-    fun showUser(context: Context, friendEntity: FriendEntity) {
+    fun showUser(context: Context, friendEntity: FriendEntity) { // передаем в UserActivity и используем в UserFragment данные через Bundle
+        Log.d("Egor", "Navigator showUser()")
         val bundle = Bundle()
         bundle.putString(ApiService.PARAM_IMAGE, friendEntity.image)
         bundle.putString(ApiService.PARAM_NAME, friendEntity.name)
         bundle.putString(ApiService.PARAM_EMAIL, friendEntity.email)
         bundle.putString(ApiService.PARAM_STATUS, friendEntity.status)
-        context.startActivity<UserActivity>(args = bundle)
+        context.startActivity<UserActivity>(args = bundle) // запуcкаем UserActivity
     }
 
-    fun showPickFromDialog(activity: AppCompatActivity, onPick: (fromCamera: Boolean) -> Unit) {
-        val options = arrayOf<CharSequence>(
+    fun showPickFromDialog(activity: AppCompatActivity, onPick: (fromCamera: Boolean) -> Unit) { // показывает диалог
+        Log.d("Egor", "Navigator showPickFromDialog")
+        val options = arrayOf( // массив с названием объекта на который будет запрашиваться разрешение
                 activity.getString(R.string.camera),
                 activity.getString(R.string.gallery)
         )
-
-        val builder = AlertDialog.Builder(activity)
-
-        builder.setTitle(activity.getString(R.string.pick))
-        builder.setItems(options) { _, item ->
-            when (options[item]) {
+        Log.d("Egor", "Navigator showPickFromDialog after options")
+        val builder = AlertDialog.Builder(activity) // созздаем объект диалога
+        Log.d("Egor", "Navigator showPickFromDialog after builder")
+        builder.setTitle(activity.getString(R.string.pick)) // утснавливаем название
+        builder.setItems(options) { _, item -> // передаем в него массив
+            when (options[item]) { // разбираем массив по элементам и вызываем соответсвующие методы
                 activity.getString(R.string.camera) -> {
                     permissionManager.checkCameraPermission(activity) {
                         onPick(true)
@@ -80,10 +83,12 @@ init {
                 }
             }
         }
-        builder.show()
+            builder.show()
+
     }
 
     fun showCamera(activity: AppCompatActivity, uri: Uri) {
+        Log.d("Egor", "Navigator showCamera()")
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
 
@@ -102,11 +107,11 @@ init {
         AlertDialog.Builder(context) // создаем объект диалога
                 .setMessage(context.getString(R.string.message_promt_app)) // устанавливаем сообщение, которое будет отображаться в диалоге
 
-                .setPositiveButton("Да") { dialog, which -> // устанавливаем слушателя на кнопку "Да"
+                .setPositiveButton("Да") { _, _ -> // устанавливаем слушателя на кнопку "Да"
                     showEmailInvite(context, email) // будет открываться приложение с почтой
                 }
 
-                .setNegativeButton("Нет") {dialog, which -> dialog.cancel() } // в случае, если пользователь нажал "Нет", закрываем диалог
+                .setNegativeButton("Нет") {dialog, _ -> dialog.cancel() } // в случае, если пользователь нажал "Нет", закрываем диалог
                 .setIcon(android.R.drawable.ic_dialog_alert) // устанавливаем иконку, которая идет в API 30
                 .show() // обязательно указываем этот метод, иначе диалог не будет отображен
     }

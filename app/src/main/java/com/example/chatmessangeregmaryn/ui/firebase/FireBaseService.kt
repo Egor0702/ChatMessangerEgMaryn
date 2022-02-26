@@ -26,7 +26,7 @@ class FirebaseService : FirebaseMessagingService() {
         App.appComponent.inject(this)
     }
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage?) { // переопределяем метод, которы вызывается при получении пользователем сообщения
         Log.d("Egor", "FirebaseService onMessageReceived()")
         Handler(Looper.getMainLooper()).post { // делегирование обработки и отображения нотификации объекту NotificationHelper. При помощи Handler(MainLooper).post выражение запущено в UI потоке.
             notificationHelper.sendNotification(remoteMessage)

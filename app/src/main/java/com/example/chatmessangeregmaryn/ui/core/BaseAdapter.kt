@@ -20,6 +20,7 @@ abstract class BaseAdapter<VH : BaseAdapter.BaseViewHolder> : RecyclerView.Adapt
     abstract fun createHolder(view: View, viewType: Int): VH // функция, создающая ViewHolder, будет реализована в классах-наследниках
 
     override fun getItemCount(): Int { // возвращает количество элементов в списке
+        Log.d("Egor", "BaseAdapter getItemCount()")
         return items.size
     }
 
@@ -62,8 +63,9 @@ abstract class BaseAdapter<VH : BaseAdapter.BaseViewHolder> : RecyclerView.Adapt
     fun setOnClick(click: (Any?, View) -> Unit, longClick: (Any?, View) -> Unit = {_,_ ->}) { // сеттер для onClick. Принимает функции высшего порядка для простого и длительного нажатия
         Log.d("Egor", "BaseAdapter setOnClick()")
         onClick = object : OnClick {
-            override fun onClick(item: Any?, view: View) {
-                click(item, view)
+            override fun onClick(item: Any?, view: View) { // переопределяем метод, вызываемый при касании пользователем экрана
+                Log.d("Egor", "BaseAdapter setOnClick() override fun onClick")
+                click(item, view) // вызываем переданную в параметр лямбду и передаем в нее элемент, на который кликнул ползователь и ее вью
             }
 
             override fun onLongClick(item: Any?, view: View) {
@@ -83,11 +85,12 @@ abstract class BaseAdapter<VH : BaseAdapter.BaseViewHolder> : RecyclerView.Adapt
 
         init {
             Log.d("Egor", "BaseViewHolder init")
-            view.setOnClickListener { // присваиваем к вью слушателя короткого нажатия
-                onClick?.onClick(item, it)
+            view.setOnClickListener { // когда пользователь нажмет один из элементов списка
+                Log.d("Egor", "BaseViewHolder перед onClick")
+                onClick?.onClick(item, it) // то вызываем метод, который отработает это нажатие
             }
-            view.setOnLongClickListener { // и присваиваем слушателя длинного нажатия
-                onClick?.onLongClick(item, it)
+            view.setOnLongClickListener { // когда пользователь зажмет один из элементов списка
+                onClick?.onLongClick(item, it) // то вызываем метод, который отработает это нажатие
                 true
             }
         }
@@ -95,6 +98,7 @@ abstract class BaseAdapter<VH : BaseAdapter.BaseViewHolder> : RecyclerView.Adapt
         protected abstract fun onBind(item: Any) // абстрактная функция, заполняющая макет элемента списка данными
 
         fun bind(item: Any) { //присваивает элемент списка вью холдеру
+            Log.d("Egor", "BaseViewHolder bind")
             this.item = item
 
             onBind(item) // делегириуем заполнение вьюхолдера onBind

@@ -26,19 +26,19 @@ abstract class BaseListFragment : BaseFragment() { // Для выделения 
         lm = LinearLayoutManager(context)
 
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView).apply {
-            setHasFixedSize(true)
-            layoutManager = lm
-            adapter = viewAdapter
+            setHasFixedSize(true) // этим методом мы устанавливаем, что размер адаптера не должен влиять на размер recyclerview
+            layoutManager = lm // усьанавливаем горизонтальную ориентацию
+            adapter = viewAdapter // устанавливаем адаптер, переопределенный в дочернем классе. объявление recyclerview завершено
         }
     }
 
-    protected fun setOnItemClickListener(func: (Any?, View) -> Unit) {
-        Log.d("Egor", "BaseListFragment onViewCreated()")
-        viewAdapter.setOnClick(func)
+    protected fun setOnItemClickListener(func: (Any?, View) -> Unit) { // метод, который обрабатывает нажатие на список с приглшениями в друзья
+        Log.d("Egor", "BaseListFragment setOnItemClickListener()")
+        viewAdapter.setOnClick(func) // подписываем адаптер на ожидание клика пользователя
     }
 
-    protected fun setOnItemLongClickListener(func: (Any?, View) -> Unit) {
-        Log.d("Egor", "BaseListFragment onViewCreated()")
+    protected fun setOnItemLongClickListener(func: (Any?, View) -> Unit) { // метод, который обрабатывает длинное нажатие пользователя
+        Log.d("Egor", "BaseListFragment setOnItemLongClickListener()")
         viewAdapter.setOnClick({_,_ ->}, longClick = func)
     }
 }

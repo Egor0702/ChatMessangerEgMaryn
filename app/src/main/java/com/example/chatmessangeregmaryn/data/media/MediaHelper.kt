@@ -8,10 +8,8 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.os.Environment.DIRECTORY_PICTURES
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Thumbnails.DATA
 import android.util.Base64
 import android.util.Log
 import androidx.core.content.FileProvider
@@ -34,11 +32,11 @@ object MediaHelper {
     }
 
     fun createImageFile(context: Context): Uri? { // создаем файл изображения
-        Log.d("Egor", "MediaHelper createImageFile()")
-        val file = File(Environment.getExternalStorageDirectory().toString() + "/DCIM/", "IMG_" + Date().time + ".png") // создаем объект файла. Параметр принмиает путь
+        Log.d("Egor", "MediaHelper createImageFile() ${MediaStore.Images.Media.EXTERNAL_CONTENT_URI.toString()}")
+        val file = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "IMG_" + Date().time + ".png")// создаем объект файла и передаем ему абсолютный путь к каталогу приложения. Параметр принмиает путь
         Log.d("Egor", "MediaHelper file: $file")
         val imgUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            FileProvider.getUriForFile(context, context.packageName + ".provider", file) // получаем ури для нашего файла, а качестве полномчия идет имя пакета
+            FileProvider.getUriForFile(context, context.packageName + ".provider", file) // получаем ури для нашего файла, а качестве полномчия идет имя пакета, где мы прописали разрешение
         } else {
             Uri.fromFile(file) // для API 24 и ниже используем следующий код
         }
@@ -171,19 +169,10 @@ object MediaHelper {
         Log.d("Egor", "MediaHelper getImageUri()")
         val bytes = ByteArrayOutputStream()
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//            val contentValues = ContentValues().apply {
-//                put(MediaStore.MediaColumns.DISPLAY_NAME, "Title")
-//                put(MediaStore.MediaColumns.MIME_TYPE, "image/JPEG")
-//                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
-//                put(MediaStore.MediaColumns.IS_PENDING, 1)
-//            }
-//            return inContext.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)!!
-        //} else {
-            val path = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+           val path: String = MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+            Log.d("Egor", "MediaHelper getImageUri() path: $path")
             return Uri.parse(path)
-        }
-
+    }
 
 
     private fun getAbsolutePath(context: Context, uri: Uri?, selection: String? = null, selectionArgs: Array<String>? = null): String? { // возвращаем полный путь к файлу
@@ -193,11 +182,15 @@ object MediaHelper {
         }
         var path: String? = null // объявляем переменную, которая будет хранить путь
 
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        //val projection = arrayOf(MediaStore.Images.Media._ID) // объявляем массив, который будет хранить идентификаторы файла
+        val column = "_data"
+        val projection: Array<String> = arrayOf(
+                column
+        )
+        //val projection = arrayOf(MediaStore.Images.Media.DATA) // объявляем массив, который будет хранить идентификаторы файла
         val cursor = context.contentResolver.query(uri, projection, selection, selectionArgs, null) // создаем объект курсор, которым мы пробежимся по списку
         if (cursor != null && cursor.moveToFirst()) { // если не null и он возвращает первый элемент:
-            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA) // возвращает индекс "0"
+            //val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            val columnIndex: Int = cursor.getColumnIndexOrThrow(column) // возвращает индекс "0"
             path = cursor.getString(columnIndex)
             Log.d("Egor", "path: $path")
         }

@@ -113,6 +113,7 @@ class AccountFragment : BaseFragment() {
         }
 
         fragmentAccountBinding.imgPhoto.setOnClickListener {
+            Log.d("Egor", "AccountFragment imgPhoto.setOnClickListener")
             base {
                 navigator.showPickFromDialog(this) { fromCamera ->
                     if (fromCamera) {

@@ -18,6 +18,10 @@ class UserFragment : BaseFragment() {
     override val titleToolbar = R.string.screen_user
     private lateinit var fragmentUserBinding: FragmentUserBinding
 
+    init {
+        Log.d("Egor", "Всем хло мы в UserFragment")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +34,7 @@ class UserFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("Egor", "LoginFragment onViewCreated()")
         super.onViewCreated(view, savedInstanceState)
 
         base {

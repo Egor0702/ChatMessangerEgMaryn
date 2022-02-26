@@ -30,28 +30,27 @@ class NotificationHelper @Inject constructor(val context: Context) { // для �
         const val notificationId = 110
     }
 
-    var mManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    var mManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager // создаем объект для управления уведомлениями
 
-    fun sendNotification(remoteMessage: RemoteMessage?) { // предварительный парс сообщения. Исходя из типа (valtype), делегирует отображение нотификации одному из методов
+    fun sendNotification(remoteMessage: RemoteMessage?) { // базовый метод для создания уведомлений для пользователя. Исходя из типа (valtype), делегирует отображение нотификации одному из методов
         Log.d("Egor", "NotificationHelper sendNotification()")
-        if (remoteMessage?.data == null) {
+        if (remoteMessage?.data != null) { // если не null, то:
+            val message: String? = remoteMessage.data[MESSAGE] // метод getData возвращает Map <String?, String?>. По ключу получаем значение
+            val jsonMessage: JSONObject = JSONObject(message).getJSONObject(JSON_MESSAGE) // получаем объект JSON с сообщением
+
+            val type = jsonMessage.getString(TYPE)
+            when (type) {
+                TYPE_ADD_FRIEND -> sendAddFriendNotification(jsonMessage)
+                TYPE_APPROVED_FRIEND -> sendApprovedFriendNotification(jsonMessage)
+                TYPE_CANCELLED_FRIEND_REQUEST -> sendCancelledFriendNotification(jsonMessage)
+            }
+        }else
             return
-        }
-
-        val message = remoteMessage.data[MESSAGE]
-        val jsonMessage = JSONObject(message).getJSONObject(JSON_MESSAGE)
-
-        val type = jsonMessage.getString(TYPE)
-        when (type) {
-            TYPE_ADD_FRIEND -> sendAddFriendNotification(jsonMessage)
-            TYPE_APPROVED_FRIEND -> sendApprovedFriendNotification(jsonMessage)
-            TYPE_CANCELLED_FRIEND_REQUEST -> sendCancelledFriendNotification(jsonMessage)
-        }
     }
 
     private fun sendAddFriendNotification(jsonMessage: JSONObject) {
         Log.d("Egor", "NotificationHelper sendAddFriendNotification()")
-        val friend = parseFriend(jsonMessage)
+        val friend: FriendEntity = parseFriend(jsonMessage)
 
         showMessage("${friend.name} ${context.getString(R.string.wants_add_as_friend)}")
     }
@@ -98,6 +97,7 @@ class NotificationHelper @Inject constructor(val context: Context) { // для �
     }
 
     private fun createChannels() {
+        Log.d("Egor", "NotificationHelper  createChannels()")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // create android channel
             val androidChannel = NotificationChannel(

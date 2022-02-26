@@ -23,6 +23,7 @@ open class FriendRequestsAdapter : BaseAdapter<FriendRequestsAdapter.FriendReque
         init {
             Log.d("Egor", "FriendRequestViewHolder init")
             view.btnApprove.setOnClickListener {
+                Log.d("Egor", "FriendRequestViewHolder setOnClickListener")
                 onClick?.onClick(item, it)
             }
             view.btnCancel.setOnClickListener {

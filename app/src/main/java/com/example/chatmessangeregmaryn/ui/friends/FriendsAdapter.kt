@@ -28,6 +28,7 @@ open class FriendsAdapter : BaseAdapter<FriendsAdapter.FriendViewHolder>() {
         }
 
         override fun onBind(item: Any) {
+            Log.d("Egor", "FriendViewHolder onBind")
             (item as? FriendEntity)?.let {
                 view.tvName.text = it.name
                 view.tvStatus.text = it.status

@@ -25,7 +25,7 @@ class Request @Inject constructor(private val networkHandler: NetworkHandler) {
     private fun <T : BaseResponse, R> execute(call: Call<T>, transform: (T) -> R): Either<Failure, R> {
         Log.d("Egor", "Request execute()")
         return try {
-            Log.d("Egor", "Мы в execute1")
+            Log.d("Egor", "Мы в execute")
             val response = call.execute()
             when (response.isSucceed()) {
                 true -> Either.Right(transform((response.body()!!)))
