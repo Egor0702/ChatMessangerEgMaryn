@@ -6,8 +6,10 @@ import android.util.Log
 import dagger.Module
 import dagger.Provides
 import com.example.chatmessangeregmaryn.cache.AccountCacheImpl
+import com.example.chatmessangeregmaryn.cache.ChatDatabase
 import com.example.chatmessangeregmaryn.cache.SharedPrefsManager
 import com.example.chatmessangeregmaryn.data.account.AccountCache
+import com.example.chatmessangeregmaryn.data.friends.FriendsCache
 import com.example.chatmessangeregmaryn.presentation.Authenticator
 import javax.inject.Singleton
 
@@ -26,5 +28,13 @@ class CacheModule {
     @Singleton
     @Provides
     fun provideAccountCache(prefsManager: SharedPrefsManager): AccountCache = AccountCacheImpl(prefsManager)
+
+    @Provides
+    @Singleton
+    fun provideChatDatabase (context: Context) = ChatDatabase.getInstance(context)
+
+    @Provides
+    @Singleton
+    fun provideFriendsCache(chatDatabase: ChatDatabase): FriendsCache = chatDatabase.friendsDao
 
 }

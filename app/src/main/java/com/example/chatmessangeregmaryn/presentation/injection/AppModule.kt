@@ -7,6 +7,7 @@ import dagger.Provides
 import com.example.chatmessangeregmaryn.data.account.AccountCache
 import com.example.chatmessangeregmaryn.data.account.AccountRemote
 import com.example.chatmessangeregmaryn.data.account.AccountRepositoryImpl
+import com.example.chatmessangeregmaryn.data.friends.FriendsCache
 import com.example.chatmessangeregmaryn.data.friends.FriendsRemote
 import com.example.chatmessangeregmaryn.data.friends.FriendsRepositoryImpl
 import com.example.chatmessangeregmaryn.data.media.MediaRepositoryImpl
@@ -34,14 +35,15 @@ class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideFriendsRepository(remote: FriendsRemote, accountCache: AccountCache): FriendsRepository {
+    fun provideFriendsRepository(remote: FriendsRemote, accountCache: AccountCache, friendsCache: FriendsCache): FriendsRepository {
         Log.d("Egor", "AppModule provideFriendsRepository()")
-        return FriendsRepositoryImpl(accountCache, remote)
+        return FriendsRepositoryImpl(accountCache, remote, friendsCache)
     }
 
     @Provides
     @Singleton
     fun provideMediaRepository(context: Context): MediaRepository {
+        Log.d("Egor", "AppModule provideMediaRepository()")
         return MediaRepositoryImpl(context)
     }
 }

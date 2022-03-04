@@ -73,6 +73,7 @@ class HomeActivity : BaseActivity() {
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.menu) // устанавливаем изображение для открытия меню
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // устанавливаем видимость установленного выше изображения
+        supportFragmentManager.beginTransaction().replace(R.id.requestContainer, FriendRequestsFragment()).commit()
         Log.d("Egor", "после supportActionBar")
 
         activityNavigationBinding.navigation.btnLogout.setOnClickListener { // устанавливаем слушателя для кнопки "Выйти"
@@ -103,14 +104,14 @@ class HomeActivity : BaseActivity() {
         supportFragmentManager.inTransaction { replace(R.id.requestContainer, FriendRequestsFragment()) } // доюавляем в контейнер фрагмент со списком входящих заявок в друзья
 
         activityNavigationBinding.navigation.btnRequests.setOnClickListener { // устанавливае  слушателя кнопки "Входящие приглашения"
-            friendsViewModel.getFriendRequests()
+            friendsViewModel.getFriendRequests(true) // передали true, чтобы загружать из сети данные
             if ( activityNavigationBinding.navigation.requestContainer.visibility == View.VISIBLE) {
                 activityNavigationBinding.navigation.requestContainer.visibility = View.GONE
             } else {
                 activityNavigationBinding.navigation.requestContainer.visibility = View.VISIBLE
             }
         }
-        activityNavigationBinding.navigation.profileContainer.setOnClickListener {
+        activityNavigationBinding.navigation.profileContainer.setOnClickListener { // отрабатываем клик на данные о пользователе
             navigator.showAccount(this)
             Handler(Looper.getMainLooper()).postDelayed({
                 closeDrawer()

@@ -9,13 +9,13 @@ import javax.inject.Inject
 
 class GetFriendRequests @Inject constructor(
         private val friendsRepository: FriendsRepository
-) : UseCase<List<FriendEntity>, None>() {
+) : UseCase<List<FriendEntity>, Boolean>() {
     init {
         Log.d("Egor", "Всем хло, мы в GetFriendRequests")
     }
 
-    override suspend fun run(params: None): Either<Failure, List<FriendEntity>> {
+    override suspend fun run(needFetch: Boolean): Either<Failure, List<FriendEntity>> {
         Log.d("Egor", "GetFriendRequests run()")
-        return friendsRepository.getFriendRequests()
+        return friendsRepository.getFriendRequests(needFetch) // аргумент указыаает загружаем инфу из БД или с сервера
     }
 }

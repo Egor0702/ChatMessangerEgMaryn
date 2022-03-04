@@ -62,11 +62,6 @@ class FriendRequestsFragment : BaseListFragment() {
                 }
             }
         }
-    }
-    override fun onResume() { // когда пв фокус пользователя выводится данный фрагмент делаем запрос и отображаем все поступвшие запросы в друзья
-        Log.d("Egor", "FriendRequestsFragment onResume()")
-        super.onResume()
-        showProgress()
         friendsViewModel.getFriendRequests()
     }
 

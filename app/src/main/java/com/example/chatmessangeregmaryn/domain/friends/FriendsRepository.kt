@@ -5,8 +5,8 @@ import com.example.chatmessangeregmaryn.domain.type.Failure
 import com.example.chatmessangeregmaryn.domain.type.None
 
 interface FriendsRepository { // iis interface needed for interaction with friends (adding friend, deleting and t.c.)
-    fun getFriends(): Either<Failure, List<FriendEntity>> // get list of friends of current user
-    fun getFriendRequests(): Either<Failure, List<FriendEntity>> // getting a list of incoming invitations to add to friends
+    fun getFriends(needFetch: Boolean): Either<Failure, List<FriendEntity>> // get list of friends of current user
+    fun getFriendRequests(needFetch: Boolean): Either<Failure, List<FriendEntity>> // getting a list of incoming invitations to add to friends
 
     fun approveFriendRequest(friendEntity: FriendEntity): Either<Failure, None> // accepts an invitation to add friends.
     fun cancelFriendRequest(friendEntity: FriendEntity): Either<Failure, None> // rejects an invitation to add friends.

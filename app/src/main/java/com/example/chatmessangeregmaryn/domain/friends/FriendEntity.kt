@@ -1,9 +1,10 @@
 package com.example.chatmessangeregmaryn.domain.friends
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
+@Entity(tableName = "friends_table")
 data class FriendEntity ( // data class what contains a friend's data
         @PrimaryKey // id теперь ключ к таблице
         @SerializedName("user_id")

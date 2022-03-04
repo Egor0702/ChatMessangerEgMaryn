@@ -203,7 +203,7 @@ class AccountFragment : BaseFragment() {
     }
 
 
-    private fun updateProgress(progress: Boolean?) {
+    override fun updateProgress(progress: Boolean?) {
         Log.d("Egor", "AccountActivity updateProgress()")
         if (progress == true) {
             fragmentAccountBinding.groupProgress.visibility = View.VISIBLE

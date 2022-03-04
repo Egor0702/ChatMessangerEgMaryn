@@ -24,14 +24,14 @@ class FriendsViewModel @Inject constructor(
     var approveFriendData: MutableLiveData<None> = MutableLiveData()
     var cancelFriendData: MutableLiveData<None> = MutableLiveData()
 
-    fun getFriends() {
+    fun getFriends(needFetch:Boolean = false) {
         Log.d("Egor", "FriendsViewModel getFriends()")
-        getFriendsUseCase(None()) { it.either(::handleFailure, ::handleFriends) }
+        getFriendsUseCase(needFetch) { it.either(::handleFailure){ handleFriends (it, !needFetch) }}
     }
 
-    fun getFriendRequests() {
+    fun getFriendRequests(needFetch:Boolean = false) {
         Log.d("Egor", "FriendsViewModel getFriendRequests()")
-        getFriendRequestsUseCase(None()) { it.either(::handleFailure, ::handleFriendRequests) }
+        getFriendRequestsUseCase(needFetch) { it.either(::handleFailure) {handleFriendRequests(it, !needFetch) } }
     }
 
     fun deleteFriend(friendEntity: FriendEntity) {
@@ -55,14 +55,26 @@ class FriendsViewModel @Inject constructor(
     }
 
 
-    private fun handleFriends(friends: List<FriendEntity>) {
+    private fun handleFriends(friends: List<FriendEntity>, fromCach : Boolean) {
         Log.d("Egor", "FriendsViewModel handleFriend()")
         friendsData.value = friends
+        updateProgress(false)
+
+        if(fromCach){ // если true
+            updateProgress(true) // то выполняем загрузку друзей
+            getFriends(true) // из сети, обновляя данные из бд
+        }
     }
 
-    private fun handleFriendRequests(friends: List<FriendEntity>) {
+    private fun handleFriendRequests(friends: List<FriendEntity>, fromCach : Boolean) {
         Log.d("Egor", "FriendsViewModel handleFriendRequests()")
         friendRequestsData.value = friends
+        updateProgress(false)
+
+        if(fromCach){ // если true
+            updateProgress(true) // то выполняем загрузку друзей
+            getFriends(true) // из сети, обновляя данные из бд
+        }
     }
 
     private fun handleDeleteFriend(none: None?) {

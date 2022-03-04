@@ -36,6 +36,7 @@ class FriendsFragment : BaseListFragment() {
         friendsViewModel = viewModel {
             onSuccess(friendsData, ::handleFriends)
             onSuccess(deleteFriendData, ::handleDeleteFriend)
+            onSuccess(progressData, ::updateProgress)
             onFailure(failureData, ::handleFailure)
         }
 
@@ -49,15 +50,8 @@ class FriendsFragment : BaseListFragment() {
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        Log.d("Egor", "FriendsFragment onResume()")
-        super.onResume()
-        showProgress()
         friendsViewModel.getFriends()
     }
-
 
     private fun showDeleteFriendDialog(entity: FriendEntity) {
         Log.d("Egor", "FriendsFragment showDeleteFriendDialog()")
